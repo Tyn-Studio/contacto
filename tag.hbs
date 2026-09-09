@@ -1,0 +1,17 @@
+{{!< default}}
+
+{{#tag}}
+    <header class="archive-head">
+        <p class="archive-label">Tag</p>
+        <h1 class="archive-title">{{name}}</h1>
+        {{#if description}}<p class="archive-desc">{{description}}</p>{{/if}}
+    </header>
+{{/tag}}
+
+<section class="sheet">
+    {{#foreach posts}}
+        {{> "post-card"}}
+    {{/foreach}}
+</section>
+
+{{pagination}}

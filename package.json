@@ -1,0 +1,61 @@
+{
+    "name": "contacto",
+    "description": "A fast, white, contact-sheet theme for a photography newsletter. No build step, no vendor bloat, subscribe-first.",
+    "version": "1.0.0",
+    "engines": {
+        "ghost": ">=5.0.0"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Luis Natera",
+        "email": "luis@tynstudio.com",
+        "url": "https://luisnatera.photo"
+    },
+    "keywords": [
+        "ghost",
+        "theme",
+        "ghost-theme",
+        "photography"
+    ],
+    "config": {
+        "posts_per_page": 12,
+        "card_assets": true,
+        "image_sizes": {
+            "xs": {
+                "width": 150
+            },
+            "s": {
+                "width": 400
+            },
+            "m": {
+                "width": 800
+            },
+            "l": {
+                "width": 1200
+            },
+            "xl": {
+                "width": 2000
+            }
+        },
+        "custom": {
+            "hero_tagline": {
+                "type": "text",
+                "description": "Line shown above the homepage signup form. Falls back to the site description.",
+                "group": "homepage"
+            },
+            "social_proof_text": {
+                "type": "text",
+                "default": "Join 90+ readers across 20+ countries.",
+                "group": "homepage"
+            },
+            "signup_disclaimer": {
+                "type": "text",
+                "default": "Weekly email. No spam. Unsubscribe anytime."
+            },
+            "disable_lightbox": {
+                "type": "boolean",
+                "default": false
+            }
+        }
+    }
+}

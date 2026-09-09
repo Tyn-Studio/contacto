@@ -1,0 +1,761 @@
+/* Contacto — a contact-sheet theme for luisnatera.photo
+   No build step. This file is the stylesheet. Edit it directly. */
+
+/* ------------------------------------------------------------------
+   1. Tokens
+------------------------------------------------------------------ */
+:root {
+    --paper: #ffffff;
+    --ink: #141414;
+    --gray: #6f6f6f;
+    --hairline: #e6e6e6;
+    --wash: #f7f7f7;
+    --accent: var(--ghost-accent-color, #f31db0);
+
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+
+    /* Ghost Admin custom fonts override the system stack when set */
+    --font-body: var(--gh-font-body, var(--sans));
+    --font-heading: var(--gh-font-heading, var(--sans));
+
+    --measure: 42.5rem;      /* 680px reading column */
+    --wide: 65rem;           /* 1040px wide images */
+    --site: 71.25rem;        /* 1140px site container */
+    --pad: clamp(1rem, 4vw, 2rem);
+}
+
+/* ------------------------------------------------------------------
+   2. Reset + base
+------------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+img,
+video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--font-heading);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin: 0;
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.skip-link {
+    position: absolute;
+    left: -999px;
+    top: 0;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.5rem 1rem;
+    z-index: 100;
+}
+
+.skip-link:focus {
+    left: 0;
+}
+
+/* ------------------------------------------------------------------
+   3. Header
+------------------------------------------------------------------ */
+.site-head {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 0 var(--pad);
+    height: 3.5rem;
+    background: var(--paper);
+    border-bottom: 1px solid var(--hairline);
+}
+
+.site-name {
+    font-weight: 650;
+    font-size: 1rem;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+}
+
+.site-nav {
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.site-nav::-webkit-scrollbar {
+    display: none;
+}
+
+.nav {
+    display: flex;
+    gap: 1.1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item a {
+    font-size: 0.875rem;
+    color: var(--gray);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.nav-item a:hover,
+.nav-item--current a {
+    color: var(--ink);
+}
+
+.head-cta {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--accent);
+    text-decoration: none;
+    padding: 0.45rem 0.9rem;
+    border-radius: 2px;
+    white-space: nowrap;
+}
+
+.head-cta:hover {
+    filter: brightness(0.88);
+}
+
+/* ------------------------------------------------------------------
+   4. Hero (homepage signup)
+------------------------------------------------------------------ */
+.hero {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: clamp(2.5rem, 7vw, 4.5rem) var(--pad) clamp(2rem, 5vw, 3rem);
+    text-align: center;
+}
+
+.hero-tagline {
+    font-size: clamp(1.25rem, 3vw, 1.625rem);
+    font-weight: 550;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.5rem;
+}
+
+.hero-proof,
+.post-cta-proof {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--gray);
+    margin: 1rem 0 0;
+}
+
+/* ------------------------------------------------------------------
+   5. Signup form (hero, post CTA)
+------------------------------------------------------------------ */
+.signup {
+    max-width: 26rem;
+    margin: 0 auto;
+}
+
+.signup-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.signup-email {
+    flex: 1;
+    min-width: 0;
+    font: inherit;
+    font-size: 0.9375rem;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--ink);
+    border-radius: 2px;
+    background: var(--paper);
+    color: var(--ink);
+}
+
+.signup-email::placeholder {
+    color: var(--gray);
+}
+
+.signup-btn {
+    font: inherit;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--accent);
+    border: 0;
+    border-radius: 2px;
+    padding: 0.6rem 1.1rem;
+    cursor: pointer;
+}
+
+.signup-btn:hover {
+    filter: brightness(0.88);
+}
+
+.signup-note {
+    font-size: 0.8125rem;
+    color: var(--gray);
+    margin: 0.6rem 0 0;
+}
+
+.signup-btn-loading,
+.signup-success,
+.signup-error {
+    display: none;
+}
+
+.signup.loading .signup-btn-default {
+    display: none;
+}
+
+.signup.loading .signup-btn-loading {
+    display: inline;
+}
+
+.signup.success .signup-row,
+.signup.success .signup-note {
+    display: none;
+}
+
+.signup.success .signup-success {
+    display: block;
+    font-weight: 550;
+    margin: 0;
+}
+
+.signup.error .signup-error {
+    display: block;
+    font-size: 0.8125rem;
+    color: #c22;
+    margin: 0.6rem 0 0;
+}
+
+@media (max-width: 30rem) {
+    .signup-row {
+        flex-direction: column;
+    }
+
+    .signup-btn {
+        padding: 0.7rem 1.1rem;
+    }
+}
+
+/* ------------------------------------------------------------------
+   6. Contact sheet grid
+------------------------------------------------------------------ */
+.sheet {
+    max-width: var(--site);
+    margin: 0 auto;
+    padding: clamp(1.25rem, 3vw, 2rem) var(--pad) 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.25rem 1.5rem;
+}
+
+@media (min-width: 40rem) {
+    .sheet {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 61.25rem) {
+    .sheet {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.frame-link {
+    display: block;
+    text-decoration: none;
+}
+
+.frame-img {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    background: var(--wash);
+    border-radius: 1px;
+}
+
+.frame-img--empty {
+    border: 1px solid var(--hairline);
+}
+
+/* the marked frame: grease-pencil outline on hover */
+.frame-link:hover .frame-img {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+
+.frame-meta {
+    padding-top: 0.6rem;
+}
+
+.frame-title {
+    font-size: 0.9375rem;
+    font-weight: 550;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+}
+
+.frame-link:hover .frame-title {
+    color: var(--accent);
+}
+
+.frame-date {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    color: var(--gray);
+    margin-top: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* ------------------------------------------------------------------
+   7. Archive header (tag / author)
+------------------------------------------------------------------ */
+.archive-head {
+    max-width: var(--site);
+    margin: 0 auto;
+    padding: clamp(2rem, 5vw, 3rem) var(--pad) 0;
+}
+
+.archive-label {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray);
+    margin: 0 0 0.4rem;
+}
+
+.archive-title {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+.archive-desc {
+    color: var(--gray);
+    max-width: var(--measure);
+    margin: 0.75rem 0 0;
+}
+
+/* ------------------------------------------------------------------
+   8. Pagination
+------------------------------------------------------------------ */
+.pagination {
+    max-width: var(--site);
+    margin: 0 auto;
+    padding: 2.5rem var(--pad) 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+}
+
+.pagination-link {
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.pagination-link:hover {
+    color: var(--accent);
+}
+
+.pagination-link--off {
+    color: var(--hairline);
+}
+
+.pagination-count {
+    color: var(--gray);
+}
+
+/* ------------------------------------------------------------------
+   9. Post
+------------------------------------------------------------------ */
+.post {
+    padding: clamp(2rem, 6vw, 3.5rem) 0 0;
+}
+
+.post-head {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 0 var(--pad);
+}
+
+.post-title {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+    letter-spacing: -0.025em;
+}
+
+.post-meta {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--gray);
+    margin: 0.9rem 0 0;
+}
+
+.post-meta a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.post-meta a:hover {
+    color: var(--accent);
+}
+
+.post-feature {
+    max-width: var(--wide);
+    margin: clamp(1.5rem, 4vw, 2.5rem) auto 0;
+    padding: 0 var(--pad);
+}
+
+.post-feature figcaption,
+.gh-content figcaption {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    color: var(--gray);
+    text-align: center;
+    padding-top: 0.5rem;
+}
+
+/* ------------------------------------------------------------------
+   10. Post content + Ghost cards
+------------------------------------------------------------------ */
+.gh-content {
+    padding: clamp(1.5rem, 4vw, 2.5rem) var(--pad) 0;
+}
+
+.gh-content > * {
+    max-width: var(--measure);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 1.2rem;
+}
+
+.gh-content > .kg-width-wide {
+    max-width: var(--wide);
+}
+
+.gh-content > .kg-width-full {
+    max-width: none;
+    margin-left: calc(-1 * var(--pad));
+    margin-right: calc(-1 * var(--pad));
+}
+
+.gh-content h2,
+.gh-content h3 {
+    margin-top: 2.2rem;
+}
+
+.gh-content h2 {
+    font-size: 1.4375rem;
+}
+
+.gh-content h3 {
+    font-size: 1.1875rem;
+}
+
+.gh-content a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 2px;
+}
+
+.gh-content a:hover {
+    color: var(--accent);
+}
+
+.gh-content blockquote {
+    border-left: 2px solid var(--accent);
+    padding-left: 1.1rem;
+    color: var(--gray);
+    font-style: italic;
+}
+
+.gh-content hr {
+    border: 0;
+    border-top: 1px solid var(--hairline);
+    margin-top: 2.2rem;
+    margin-bottom: 2.2rem;
+}
+
+.gh-content pre {
+    background: var(--wash);
+    border: 1px solid var(--hairline);
+    border-radius: 2px;
+    padding: 1rem;
+    overflow-x: auto;
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+}
+
+.gh-content code {
+    font-family: var(--mono);
+    font-size: 0.875em;
+    background: var(--wash);
+    padding: 0.1em 0.3em;
+    border-radius: 2px;
+}
+
+.gh-content pre code {
+    background: none;
+    padding: 0;
+}
+
+.kg-image-card img,
+.kg-gallery-image img {
+    cursor: zoom-in;
+}
+
+.kg-card + .kg-card {
+    margin-top: 1.5rem;
+}
+
+/* ------------------------------------------------------------------
+   11. End-of-post CTA
+------------------------------------------------------------------ */
+.post-cta {
+    max-width: var(--measure);
+    margin: clamp(2.5rem, 6vw, 4rem) auto 0;
+    padding: clamp(1.75rem, 4vw, 2.5rem) var(--pad);
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    text-align: center;
+}
+
+.post-cta-title {
+    font-size: 1.375rem;
+    letter-spacing: -0.02em;
+}
+
+.post-cta-text {
+    color: var(--gray);
+    margin: 0.75rem auto 1.4rem;
+    max-width: 32rem;
+}
+
+/* ------------------------------------------------------------------
+   12. Post nav, comments
+------------------------------------------------------------------ */
+.post-nav {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 2.5rem var(--pad) 3rem;
+    display: grid;
+    gap: 1rem;
+}
+
+@media (min-width: 40rem) {
+    .post-nav {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .post-nav-next {
+        text-align: right;
+    }
+}
+
+.post-nav-link {
+    text-decoration: none;
+}
+
+.post-nav-label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gray);
+    margin-bottom: 0.25rem;
+}
+
+.post-nav-title {
+    font-size: 0.9375rem;
+    font-weight: 550;
+}
+
+.post-nav-link:hover .post-nav-title {
+    color: var(--accent);
+}
+
+.post-comments {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 0 var(--pad) 3rem;
+}
+
+/* ------------------------------------------------------------------
+   13. Footer
+------------------------------------------------------------------ */
+.site-foot {
+    border-top: 1px solid var(--hairline);
+    margin-top: 3rem;
+}
+
+.foot-line {
+    max-width: var(--site);
+    margin: 0 auto;
+    padding: 1.25rem var(--pad);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--gray);
+}
+
+.foot-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.foot-links a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.foot-links a:hover {
+    color: var(--accent);
+}
+
+/* ------------------------------------------------------------------
+   14. Error pages
+------------------------------------------------------------------ */
+.error {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 5rem var(--pad);
+    text-align: center;
+}
+
+.error-code {
+    font-family: var(--mono);
+    font-size: 0.875rem;
+    color: var(--gray);
+    margin: 0 0 0.5rem;
+}
+
+.error-title {
+    font-size: 1.75rem;
+}
+
+.error-text {
+    color: var(--gray);
+    margin-top: 0.75rem;
+}
+
+.error-text a {
+    color: var(--ink);
+}
+
+/* ------------------------------------------------------------------
+   15. Lightbox
+------------------------------------------------------------------ */
+.lb {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(255, 255, 255, 0.96);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem var(--pad);
+}
+
+.lb img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.12);
+}
+
+.lb-close,
+.lb-prev,
+.lb-next {
+    position: absolute;
+    font: inherit;
+    font-family: var(--mono);
+    font-size: 1rem;
+    background: none;
+    border: 0;
+    color: var(--ink);
+    cursor: pointer;
+    padding: 0.75rem;
+}
+
+.lb-close {
+    top: 0.5rem;
+    right: 0.75rem;
+}
+
+.lb-prev {
+    left: 0.25rem;
+}
+
+.lb-next {
+    right: 0.25rem;
+}
+
+.lb-count {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--gray);
+}
+
+/* ------------------------------------------------------------------
+   16. Motion
+------------------------------------------------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+    a,
+    button,
+    .frame-img,
+    .frame-title {
+        transition: color 120ms ease, filter 120ms ease, outline-color 120ms ease;
+    }
+}

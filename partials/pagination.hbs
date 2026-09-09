@@ -1,0 +1,13 @@
+<nav class="pagination" aria-label="Pagination">
+    {{#if prev}}
+        <a class="pagination-link" href="{{page_url prev}}">&larr; Newer</a>
+    {{else}}
+        <span class="pagination-link pagination-link--off">&larr; Newer</span>
+    {{/if}}
+    <span class="pagination-count">{{page}} / {{pages}}</span>
+    {{#if next}}
+        <a class="pagination-link" href="{{page_url next}}">Older &rarr;</a>
+    {{else}}
+        <span class="pagination-link pagination-link--off">Older &rarr;</span>
+    {{/if}}
+</nav>

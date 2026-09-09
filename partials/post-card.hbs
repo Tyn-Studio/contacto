@@ -1,0 +1,20 @@
+<article class="frame {{post_class}}">
+    <a class="frame-link" href="{{url}}">
+        {{#if feature_image}}
+            <img class="frame-img"
+                srcset="{{img_url feature_image size="s"}} 400w,
+                        {{img_url feature_image size="m"}} 800w,
+                        {{img_url feature_image size="l"}} 1200w"
+                sizes="(min-width: 980px) 33vw, (min-width: 640px) 50vw, 100vw"
+                src="{{img_url feature_image size="m"}}"
+                alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                loading="lazy">
+        {{else}}
+            <div class="frame-img frame-img--empty" aria-hidden="true"></div>
+        {{/if}}
+        <div class="frame-meta">
+            <h2 class="frame-title">{{title}}</h2>
+            <time class="frame-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMM YYYY"}}</time>
+        </div>
+    </a>
+</article>

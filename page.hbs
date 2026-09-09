@@ -1,0 +1,25 @@
+{{!< default}}
+
+{{#post}}
+    <article class="post page {{post_class}}">
+        {{#match @page.show_title_and_feature_image}}
+            <header class="post-head">
+                <h1 class="post-title">{{title}}</h1>
+            </header>
+
+            {{#if feature_image}}
+                <figure class="post-feature">
+                    <img srcset="{{img_url feature_image size="m"}} 800w,
+                                {{img_url feature_image size="l"}} 1200w"
+                        sizes="(min-width: 1100px) 1040px, 100vw"
+                        src="{{img_url feature_image size="l"}}"
+                        alt="{{title}}" loading="eager" fetchpriority="high">
+                </figure>
+            {{/if}}
+        {{/match}}
+
+        <section class="post-content gh-content">
+            {{content}}
+        </section>
+    </article>
+{{/post}}
