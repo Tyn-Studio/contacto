@@ -1,0 +1,60 @@
+{{!< default}}
+
+{{#post}}
+    {{#if @member}}
+        <article class="post page {{post_class}}">
+            <header class="post-head">
+                <h1 class="post-title">{{title}}</h1>
+                {{#if custom_excerpt}}
+                    <p class="nl-intro">{{custom_excerpt}}</p>
+                {{/if}}
+            </header>
+        </article>
+
+        <section class="pf-grid">
+            {{#get "pages" filter="tag:hash-members" limit="all" order="published_at desc"}}
+                {{#foreach pages}}
+                    <a class="pf-item" href="{{url}}">
+                        {{#if feature_image}}
+                            <img class="pf-img"
+                                srcset="{{img_url feature_image size="m"}} 800w,
+                                        {{img_url feature_image size="l"}} 1200w"
+                                sizes="(min-width: 40rem) 50vw, 100vw"
+                                src="{{img_url feature_image size="l"}}"
+                                alt="{{title}}" loading="lazy">
+                        {{else}}
+                            <div class="pf-img pf-img--empty" aria-hidden="true"></div>
+                        {{/if}}
+                        <div class="pf-overlay">
+                            <h2 class="pf-title">{{title}}</h2>
+                            {{#if custom_excerpt}}
+                                <p class="pf-excerpt">{{custom_excerpt}}</p>
+                            {{/if}}
+                        </div>
+                    </a>
+                {{else}}
+                    <p class="portfolio-empty">First goodies landing soon. You will hear about them in the newsletter.</p>
+                {{/foreach}}
+            {{/get}}
+        </section>
+    {{else}}
+        <section class="nl-hero">
+            <div class="nl-hero-media">
+                {{#if feature_image}}
+                    <img src="{{img_url feature_image size="l"}}" alt="" loading="eager" fetchpriority="high">
+                {{else}}
+                    <img src="{{img_url @site.cover_image size="l"}}" alt="" loading="eager" fetchpriority="high">
+                {{/if}}
+            </div>
+            <div class="nl-hero-panel">
+                <p class="nl-kicker">Members</p>
+                <h1 class="nl-hero-title">{{title}}</h1>
+                <div class="mb-benefits">
+                    {{content}}
+                </div>
+                {{> "subscribe-form"}}
+                <p class="mb-signin">Already subscribed? <a href="#/portal/signin" data-portal="signin">Sign in</a></p>
+            </div>
+        </section>
+    {{/if}}
+{{/post}}
