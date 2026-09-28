@@ -30,14 +30,24 @@
             </figure>
         {{/if}}
 
-        <section class="post-content gh-content">
-            {{content}}
-        </section>
+        {{#if access}}
+            <section class="post-content gh-content">
+                {{content}}
+            </section>
+        {{else}}
+            <div class="gate">
+                <p class="gate-note">This one is for subscribers. It is free.</p>
+                {{> "subscribe-form"}}
+                <p class="mb-signin">Already subscribed? <a href="#/portal/signin" data-portal="signin">Sign in</a></p>
+            </div>
+        {{/if}}
     </article>
 
-    {{#unless @member}}
-        {{> "subscribe-cta"}}
-    {{/unless}}
+    {{#if access}}
+        {{#unless @member}}
+            {{> "subscribe-cta"}}
+        {{/unless}}
+    {{/if}}
 
     <nav class="post-nav">
         {{#prev_post}}

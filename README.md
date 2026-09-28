@@ -27,7 +27,11 @@ Headings and body come from Ghost Admin custom fonts (currently Space Grotesk + 
 ## Content conventions
 
 - **Portfolio gallery** = a page tagged `#portfolio` with images in the body; excerpt is the intro paragraph, feature image is the cover. The viewer (arrows, counter, keyboard, swipe) is progressive enhancement.
-- **Members goodie** = a page tagged `#members` with visibility "Members only"; non-members see a subscribe gate.
+- **Members goodie** = a page (or post) tagged `#members` with visibility "Members only"; non-members see a subscribe gate. Add a second internal tag to badge the card in the hub: `#download`, `#guide`, `#coupon`, or `#discussion`.
+- **Discussion** = a members-only *post* tagged `#members` + `#discussion` — posts get native Ghost comments, pages do not.
+- **Coupon code** = an HTML card in the body: `<div class="coupon">CODE</div>` renders a dashed accent box, select-all on click.
+- **Download** = Ghost file cards in the body (styled by Ghost's card assets).
+- Members-only cards in public grids show a pink "Members" chip.
 
 ## Theme settings (Ghost Admin → Design)
 

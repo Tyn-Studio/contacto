@@ -1184,6 +1184,49 @@ h4 {
     color: var(--accent);
 }
 
+/* Asset-type chip on members cards, always visible */
+.pf-tag {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.92);
+    padding: 0.25rem 0.55rem;
+    border-radius: 1px;
+}
+
+/* Members chip on locked cards in public grids */
+.frame-lock {
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
+    z-index: 1;
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #fff;
+    background: var(--accent);
+    padding: 0.2rem 0.5rem;
+    border-radius: 1px;
+}
+
+/* Coupon code block: use an HTML card with <div class="coupon">CODE</div> */
+.gh-content .coupon {
+    font-family: var(--mono);
+    font-size: 1.375rem;
+    letter-spacing: 0.14em;
+    text-align: center;
+    border: 2px dashed var(--accent);
+    padding: 1.1rem;
+    border-radius: 2px;
+    user-select: all;
+}
+
 /* Subscriber gate for members-only pages */
 .gate {
     max-width: var(--measure);

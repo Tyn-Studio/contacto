@@ -14,26 +14,18 @@
         <section class="pf-grid">
             {{#get "pages" filter="tag:hash-members" limit="all" order="published_at desc"}}
                 {{#foreach pages}}
-                    <a class="pf-item" href="{{url}}">
-                        {{#if feature_image}}
-                            <img class="pf-img"
-                                srcset="{{img_url feature_image size="m"}} 800w,
-                                        {{img_url feature_image size="l"}} 1200w"
-                                sizes="(min-width: 40rem) 50vw, 100vw"
-                                src="{{img_url feature_image size="l"}}"
-                                alt="{{title}}" loading="lazy">
-                        {{else}}
-                            <div class="pf-img pf-img--empty" aria-hidden="true"></div>
-                        {{/if}}
-                        <div class="pf-overlay">
-                            <h2 class="pf-title">{{title}}</h2>
-                            {{#if custom_excerpt}}
-                                <p class="pf-excerpt">{{custom_excerpt}}</p>
-                            {{/if}}
-                        </div>
-                    </a>
+                    {{> "members-card"}}
                 {{else}}
-                    <p class="portfolio-empty">First goodies landing soon. You will hear about them in the newsletter.</p>
+                    {{#get "posts" filter="tag:hash-members" limit="1"}}
+                        {{#unless posts}}
+                            <p class="portfolio-empty">First goodies landing soon. You will hear about them in the newsletter.</p>
+                        {{/unless}}
+                    {{/get}}
+                {{/foreach}}
+            {{/get}}
+            {{#get "posts" filter="tag:hash-members" limit="all" order="published_at desc"}}
+                {{#foreach posts}}
+                    {{> "members-card"}}
                 {{/foreach}}
             {{/get}}
         </section>

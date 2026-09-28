@@ -1,0 +1,19 @@
+<a class="pf-item" href="{{url}}">
+    {{#if feature_image}}
+        <img class="pf-img"
+            srcset="{{img_url feature_image size="m"}} 800w,
+                    {{img_url feature_image size="l"}} 1200w"
+            sizes="(min-width: 40rem) 50vw, 100vw"
+            src="{{img_url feature_image size="l"}}"
+            alt="{{title}}" loading="lazy">
+    {{else}}
+        <div class="pf-img pf-img--empty" aria-hidden="true"></div>
+    {{/if}}
+    <span class="pf-tag">{{#has tag="#coupon"}}Coupon{{else}}{{#has tag="#guide"}}Guide{{else}}{{#has tag="#discussion"}}Discussion{{else}}{{#has tag="#download"}}Download{{else}}Members{{/has}}{{/has}}{{/has}}{{/has}}</span>
+    <div class="pf-overlay">
+        <h2 class="pf-title">{{title}}</h2>
+        {{#if custom_excerpt}}
+            <p class="pf-excerpt">{{custom_excerpt}}</p>
+        {{/if}}
+    </div>
+</a>

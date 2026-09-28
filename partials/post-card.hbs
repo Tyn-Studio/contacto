@@ -1,5 +1,8 @@
 <article class="frame {{post_class}}">
     <a class="frame-link" href="{{url}}">
+        {{#match visibility "!=" "public"}}
+            <span class="frame-lock">Members</span>
+        {{/match}}
         {{#if feature_image}}
             <img class="frame-img"
                 srcset="{{img_url feature_image size="s"}} 400w,
