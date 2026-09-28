@@ -20,7 +20,7 @@
         {{#if @member}}
             <a class="head-cta" href="#/portal/account" data-portal="account">Account</a>
         {{else}}
-            <a class="head-cta" href="#/portal/signup" data-portal="signup">Subscribe</a>
+            <a class="head-cta" href="#/portal/signin" data-portal="signin">Sign in</a>
         {{/if}}
     </header>
 
@@ -42,6 +42,9 @@
     {{#unless @custom.disable_lightbox}}
         <script defer src="{{asset "js/main.js"}}"></script>
     {{/unless}}
+    {{#is "page"}}
+        <script defer src="{{asset "js/gallery.js"}}"></script>
+    {{/is}}
     {{ghost_foot}}
 </body>
 

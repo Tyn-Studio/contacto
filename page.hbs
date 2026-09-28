@@ -1,6 +1,33 @@
 {{!< default}}
 
 {{#post}}
+    {{#has tag="#portfolio"}}
+        <article class="post gallery {{post_class}}">
+            <header class="post-head post-head--edge gallery-head">
+                <h1 class="post-title">{{title}}</h1>
+                {{#if custom_excerpt}}
+                    <p class="gallery-intro">{{custom_excerpt}}</p>
+                {{/if}}
+            </header>
+
+            {{!-- filled by gallery.js from the images below; without JS the
+                  images simply render as normal page content --}}
+            <div class="gallery-viewer" hidden>
+                <div class="gv-stage">
+                    <button class="gv-prev" type="button" aria-label="Previous photo">&larr;</button>
+                    <img class="gv-img" alt="">
+                    <button class="gv-next" type="button" aria-label="Next photo">&rarr;</button>
+                </div>
+                <p class="gv-count"><span class="gv-index">1</span> / <span class="gv-total"></span></p>
+            </div>
+
+            <section class="gallery-source post-content gh-content">
+                {{content}}
+            </section>
+
+            <p class="gallery-back"><a href="{{@site.url}}/portfolio/">&larr; Portfolio</a></p>
+        </article>
+    {{else}}
     <article class="post page {{post_class}}">
         {{#match @page.show_title_and_feature_image}}
             <header class="post-head">
@@ -18,8 +45,17 @@
             {{/if}}
         {{/match}}
 
-        <section class="post-content gh-content">
-            {{content}}
-        </section>
+        {{#if access}}
+            <section class="post-content gh-content">
+                {{content}}
+            </section>
+        {{else}}
+            <div class="gate">
+                <p class="gate-note">This page is for subscribers. It is free.</p>
+                {{> "subscribe-form"}}
+                <p class="mb-signin">Already subscribed? <a href="#/portal/signin" data-portal="signin">Sign in</a></p>
+            </div>
+        {{/if}}
     </article>
+    {{/has}}
 {{/post}}

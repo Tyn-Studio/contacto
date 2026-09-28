@@ -40,7 +40,29 @@
         "custom": {
             "hero_tagline": {
                 "type": "text",
-                "description": "Line shown above the homepage signup form. Falls back to the site description.",
+                "default": "Street and travel photography.",
+                "description": "First line of the homepage tagline. Falls back to the site description.",
+                "group": "homepage"
+            },
+            "hero_tagline_line_2": {
+                "type": "text",
+                "default": "Photo essays, urban spaces, and creativity.",
+                "description": "Second line of the homepage tagline.",
+                "group": "homepage"
+            },
+            "social_proof_1": {
+                "type": "text",
+                "default": "90+ readers",
+                "group": "homepage"
+            },
+            "social_proof_2": {
+                "type": "text",
+                "default": "20+ countries",
+                "group": "homepage"
+            },
+            "social_proof_3": {
+                "type": "text",
+                "default": "48 issues",
                 "group": "homepage"
             },
             "social_proof_text": {

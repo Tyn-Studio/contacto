@@ -23,6 +23,8 @@
     --wide: 65rem;           /* 1040px wide images */
     --site: 71.25rem;        /* 1140px site container */
     --pad: clamp(1rem, 4vw, 2rem);
+    --gutter: clamp(0.5rem, 1.5vw, 1rem);   /* thin page-edge margin, set by the hero */
+    --title-inset: calc(var(--gutter) + clamp(1.25rem, 4vw, 2.5rem));   /* x-position of the hero name; all titles align to it */
 }
 
 /* ------------------------------------------------------------------
@@ -181,6 +183,141 @@ h4 {
     margin: 1rem 0 0;
 }
 
+/* Photo hero: cover image with title overlay, proof + signup below.
+   Fills the first viewport exactly (header is 3.5rem): the image flexes
+   to whatever height the signup block leaves, so the photo and the form
+   are always fully visible and the post grid starts below the fold. */
+.hero--photo {
+    max-width: none;
+    min-height: calc(100vh - 3.5rem);
+    min-height: calc(100svh - 3.5rem);
+    display: flex;
+    flex-direction: column;
+    padding: clamp(0.75rem, 2vw, 1.25rem) var(--gutter) clamp(1.25rem, 3vw, 2rem);
+}
+
+.hero-frame {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 16rem;
+    border-radius: 1px;
+    overflow: hidden;
+    background: var(--wash);
+}
+
+.hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-titling {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.18) 45%, rgba(0, 0, 0, 0) 70%);
+    color: #fff;
+}
+
+.hero-name {
+    font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.hero--photo .hero-tagline {
+    color: #fff;
+    font-size: clamp(1rem, 2.2vw, 1.25rem);
+    font-weight: 500;
+    line-height: 1.4;
+    max-width: 32rem;
+    margin: 0.5rem 0 0;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+}
+
+.hero-line {
+    display: block;
+}
+
+/* Shrink-wrap to the stats row so the form's edges align with the
+   outer text edges of the social proof, whatever the counters say */
+.hero-signup {
+    width: fit-content;
+    min-width: min(24rem, 100%);
+    margin-inline: auto;
+    padding-top: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+.hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+    margin: 0 0 1.5rem;
+    padding: 0;
+}
+
+.hero-stat {
+    font-family: var(--mono);
+    font-size: 0.9375rem;
+    color: var(--gray);
+    padding: 0.15rem clamp(1.1rem, 3vw, 2.25rem);
+}
+
+.hero-stat:first-child {
+    padding-left: 0;
+}
+
+.hero-stat:last-child {
+    padding-right: 0;
+}
+
+.hero-stat + .hero-stat {
+    border-left: 1px solid var(--hairline);
+}
+
+/* Phones: keep the three stats on one centred line */
+@media (max-width: 30rem) {
+    .hero-stats {
+        flex-wrap: nowrap;
+    }
+
+    .hero-stat {
+        font-size: 0.75rem;
+        padding: 0.15rem 0.7rem;
+        white-space: nowrap;
+    }
+}
+
+/* Slightly larger signup form in the hero, same centred axis as the stats */
+.hero-signup .signup {
+    max-width: none;
+}
+
+.hero-signup .signup-email,
+.hero-signup .signup-btn {
+    font-size: 1rem;
+}
+
+.hero-signup .signup-email {
+    padding: 0.65rem 0.9rem;
+}
+
+.hero-signup .signup-btn {
+    padding: 0.65rem 1.2rem;
+}
+
+.hero-signup .signup-note {
+    font-size: 0.875rem;
+}
+
 /* ------------------------------------------------------------------
    5. Signup form (hero, post CTA)
 ------------------------------------------------------------------ */
@@ -278,9 +415,8 @@ h4 {
    6. Contact sheet grid
 ------------------------------------------------------------------ */
 .sheet {
-    max-width: var(--site);
     margin: 0 auto;
-    padding: clamp(1.25rem, 3vw, 2rem) var(--pad) 0;
+    padding: clamp(1.25rem, 3vw, 2rem) var(--gutter) 0;
     display: grid;
     grid-template-columns: 1fr;
     gap: 2.25rem 1.5rem;
@@ -300,6 +436,7 @@ h4 {
 
 .frame-link {
     display: block;
+    position: relative;
     text-decoration: none;
 }
 
@@ -350,9 +487,8 @@ h4 {
    7. Archive header (tag / author)
 ------------------------------------------------------------------ */
 .archive-head {
-    max-width: var(--site);
     margin: 0 auto;
-    padding: clamp(2rem, 5vw, 3rem) var(--pad) 0;
+    padding: clamp(2rem, 5vw, 3rem) var(--title-inset) 0;
 }
 
 .archive-label {
@@ -365,7 +501,9 @@ h4 {
 }
 
 .archive-title {
-    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
 }
 
 .archive-desc {
@@ -378,9 +516,8 @@ h4 {
    8. Pagination
 ------------------------------------------------------------------ */
 .pagination {
-    max-width: var(--site);
     margin: 0 auto;
-    padding: 2.5rem var(--pad) 3rem;
+    padding: 2.5rem var(--gutter) 3rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -413,14 +550,14 @@ h4 {
 }
 
 .post-head {
-    max-width: var(--measure);
-    margin: 0 auto;
-    padding: 0 var(--pad);
+    margin: 0;
+    padding: 0 var(--title-inset);
 }
 
 .post-title {
-    font-size: clamp(1.75rem, 5vw, 2.5rem);
-    letter-spacing: -0.025em;
+    font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
 }
 
 .post-meta {
@@ -749,7 +886,325 @@ h4 {
 }
 
 /* ------------------------------------------------------------------
-   16. Motion
+   16. Portfolio galleries
+------------------------------------------------------------------ */
+.portfolio-intro,
+.gallery-intro {
+    color: var(--gray);
+    max-width: var(--measure);
+    margin: 0.75rem 0 0;
+}
+
+/* Portfolio grid: one large photo per project, title revealed on hover */
+.pf-grid {
+    margin: 0 auto;
+    padding: clamp(1.5rem, 4vw, 2.5rem) var(--gutter) clamp(2.5rem, 6vw, 4rem);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1rem, 2.5vw, 1.75rem);
+}
+
+@media (min-width: 40rem) {
+    .pf-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.pf-item {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: 1px;
+    text-decoration: none;
+}
+
+.pf-img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    background: var(--wash);
+    transition: transform 0.5s ease;
+}
+
+.pf-img--empty {
+    border: 1px solid var(--hairline);
+}
+
+.pf-item:hover .pf-img {
+    transform: scale(1.03);
+}
+
+.pf-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: clamp(1rem, 3vw, 1.75rem);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.6) 100%);
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.pf-item:hover .pf-overlay,
+.pf-item:focus-visible .pf-overlay {
+    opacity: 1;
+}
+
+.pf-title {
+    font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+    font-weight: 650;
+    letter-spacing: -0.015em;
+    color: #fff;
+}
+
+.pf-excerpt {
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0.3rem 0 0;
+    max-width: 34rem;
+}
+
+/* no hover on touch screens: keep the titles visible */
+@media (hover: none) {
+    .pf-overlay {
+        opacity: 1;
+    }
+}
+
+.portfolio-empty {
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    color: var(--gray);
+}
+
+.gallery-viewer {
+    margin: 0 auto;
+    padding: clamp(1.5rem, 4vw, 2.5rem) var(--gutter) 0;
+}
+
+.gv-stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--wash);
+    min-height: 14rem;
+}
+
+.gv-img {
+    max-width: 100%;
+    max-height: 74vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    cursor: zoom-in;
+}
+
+.gv-prev,
+.gv-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font: inherit;
+    font-size: 1.25rem;
+    line-height: 1;
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.85);
+    border: 0;
+    padding: 0.7rem 0.9rem;
+    cursor: pointer;
+}
+
+.gv-prev {
+    left: 0;
+}
+
+.gv-next {
+    right: 0;
+}
+
+.gv-prev:hover,
+.gv-next:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+.gv-count {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--gray);
+    text-align: center;
+    margin: 0.75rem 0 0;
+}
+
+.gallery-back {
+    margin: 0 auto;
+    padding: clamp(1.5rem, 4vw, 2.5rem) var(--title-inset) clamp(2rem, 5vw, 3rem);
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+}
+
+.gallery-back a {
+    color: var(--gray);
+    text-decoration: none;
+}
+
+.gallery-back a:hover {
+    color: var(--accent);
+}
+
+/* ------------------------------------------------------------------
+   17. Newsletter page: signup on top, archive below
+------------------------------------------------------------------ */
+.nl-hero {
+    display: grid;
+    margin: clamp(0.75rem, 2vw, 1.25rem) var(--gutter) 0;
+}
+
+@media (min-width: 50rem) {
+    .nl-hero {
+        grid-template-columns: 1fr 1fr;
+        min-height: min(38rem, calc(100svh - 3.5rem - 2.5rem));
+    }
+}
+
+.nl-hero-media {
+    position: relative;
+    min-height: 15rem;
+}
+
+.nl-hero-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: var(--wash);
+}
+
+.nl-hero-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background: var(--wash);
+    padding: clamp(1.5rem, 4vw, 3.5rem);
+}
+
+.nl-kicker {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin: 0 0 0.9rem;
+}
+
+.nl-hero-title {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+}
+
+.nl-intro {
+    color: var(--gray);
+    max-width: 30rem;
+    margin: 0.9rem 0 0;
+}
+
+.nl-hero .hero-stats {
+    justify-content: flex-start;
+    margin: 1.4rem 0 1.1rem;
+}
+
+.nl-hero .signup {
+    margin: 0;
+    width: 100%;
+    max-width: 27rem;
+}
+
+.nl-archive {
+    padding: clamp(2.5rem, 6vw, 4rem) var(--title-inset) 0;
+}
+
+.nl-archive-label {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray);
+    margin: 0;
+}
+
+.sheet--archive {
+    padding-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+/* Members space */
+.mb-benefits {
+    color: var(--gray);
+    max-width: 30rem;
+    margin: 0.9rem 0 0;
+}
+
+.mb-benefits ul {
+    margin: 0.75rem 0 0;
+    padding-left: 1.1rem;
+}
+
+.mb-benefits li {
+    margin-bottom: 0.35rem;
+}
+
+.mb-benefits li::marker {
+    color: var(--accent);
+}
+
+.nl-hero .mb-benefits + .signup {
+    margin-top: 1.4rem;
+}
+
+.mb-signin {
+    font-size: 0.8125rem;
+    color: var(--gray);
+    margin: 0.9rem 0 0;
+}
+
+.mb-signin a {
+    color: var(--ink);
+}
+
+.mb-signin a:hover {
+    color: var(--accent);
+}
+
+/* Subscriber gate for members-only pages */
+.gate {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: clamp(2rem, 5vw, 3rem) var(--pad) clamp(2.5rem, 6vw, 4rem);
+    text-align: center;
+}
+
+.gate .signup {
+    margin: 0 auto;
+}
+
+.gate-note {
+    font-family: var(--mono);
+    font-size: 0.8125rem;
+    color: var(--gray);
+    margin: 0 0 1.1rem;
+}
+
+/* ------------------------------------------------------------------
+   18. Motion
 ------------------------------------------------------------------ */
 @media (prefers-reduced-motion: no-preference) {
     a,
