@@ -1,0 +1,46 @@
+{{!< default}}
+
+{{#post}}
+    <section class="nl-hero">
+        <div class="nl-hero-media">
+            {{#if feature_image}}
+                <img srcset="{{img_url feature_image size="m"}} 800w,
+                            {{img_url feature_image size="l"}} 1200w"
+                    sizes="(min-width: 50rem) 50vw, 100vw"
+                    src="{{img_url feature_image size="l"}}"
+                    alt="" loading="eager" fetchpriority="high">
+            {{else}}
+                <img src="{{img_url @site.cover_image size="l"}}" alt="" loading="eager" fetchpriority="high">
+            {{/if}}
+        </div>
+        <div class="nl-hero-panel">
+            <p class="nl-kicker">Weekly newsletter</p>
+            <h1 class="nl-hero-title">{{title}}</h1>
+            <p class="nl-intro">{{#if custom_excerpt}}{{custom_excerpt}}{{else}}{{@site.description}}{{/if}}</p>
+            <ul class="hero-stats">
+                {{#if @custom.social_proof_1}}<li class="hero-stat">{{@custom.social_proof_1}}</li>{{/if}}
+                {{#if @custom.social_proof_2}}<li class="hero-stat">{{@custom.social_proof_2}}</li>{{/if}}
+                {{#if @custom.social_proof_3}}<li class="hero-stat">{{@custom.social_proof_3}}</li>{{/if}}
+            </ul>
+            {{> "subscribe-form"}}
+        </div>
+    </section>
+{{/post}}
+
+<section class="nl-archive">
+    <h2 class="nl-archive-label">Archive</h2>
+</section>
+
+<section class="sheet sheet--archive">
+    {{!-- get caps a single call at 100 posts, so page through --}}
+    {{#get "posts" limit="100" page="1" order="published_at desc"}}
+        {{#foreach posts}}
+            {{> "post-card"}}
+        {{/foreach}}
+    {{/get}}
+    {{#get "posts" limit="100" page="2" order="published_at desc"}}
+        {{#foreach posts}}
+            {{> "post-card"}}
+        {{/foreach}}
+    {{/get}}
+</section>
