@@ -104,7 +104,8 @@
         var sec = section('Wallpapers');
         var grid = el('div', 'mbx-walls');
         wallpapers.forEach(function (wall) {
-            var fig = el('figure', 'mbx-wall');
+            var fig = el('figure', 'mbx-wall' +
+                (wall.orientation === 'portrait' ? ' mbx-wall--portrait' : ''));
             if (wall.preview) {
                 var img = el('img');
                 img.src = wall.preview;

@@ -1377,6 +1377,18 @@ h4 {
     margin: 0;
 }
 
+/* Phone-only wallpapers: portrait preview framed like a phone screen */
+.mbx-wall--portrait img {
+    aspect-ratio: 9 / 19.5;
+    width: auto;
+    max-height: 24rem;
+    margin: 0 auto;
+}
+
+.mbx-wall--portrait figcaption {
+    justify-content: center;
+}
+
 .mbx-wall figcaption {
     display: flex;
     align-items: baseline;
