@@ -115,8 +115,7 @@
             var cap = el('figcaption');
             cap.appendChild(el('span', 'mbx-wall-title', wall.title));
             var links = el('span', 'mbx-dl-row');
-            if (wall.versions.desktop) links.appendChild(downloadLink(wall.versions.desktop, 'Desktop'));
-            if (wall.versions.tablet) links.appendChild(downloadLink(wall.versions.tablet, 'Tablet'));
+            if (wall.versions.desktop) links.appendChild(downloadLink(wall.versions.desktop, 'Desktop / tablet'));
             if (wall.versions.phone) links.appendChild(downloadLink(wall.versions.phone, 'Phone'));
             cap.appendChild(links);
             fig.appendChild(cap);
