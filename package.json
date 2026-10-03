@@ -74,6 +74,11 @@
                 "type": "text",
                 "default": "Weekly email. No spam. Unsubscribe anytime."
             },
+            "members_feed_key": {
+                "type": "text",
+                "default": "",
+                "description": "Access key for the shop's member feed; only rendered to signed-in members."
+            },
             "disable_lightbox": {
                 "type": "boolean",
                 "default": false

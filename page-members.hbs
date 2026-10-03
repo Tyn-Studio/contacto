@@ -15,6 +15,13 @@
             </section>
         </article>
 
+        {{!-- Live member extras from the shop: deals, wallpapers, zines.
+              The feed key only ever renders inside this member branch. --}}
+        <div class="mbx"
+             data-feed="https://shop.luisnatera.photo/api/members.json{{#if @custom.members_feed_key}}?k={{@custom.members_feed_key}}{{/if}}">
+        </div>
+        <script defer src="{{asset "js/members.js"}}"></script>
+
         <section class="pf-grid">
             {{#get "pages" filter="tag:hash-members" limit="all" order="published_at desc"}}
                 {{#foreach pages}}
