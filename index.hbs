@@ -1,39 +1,43 @@
 {{!< default}}
 
 {{#match pagination.page 1}}
-    {{#unless @member}}
-        {{#if @site.cover_image}}
-            <section class="hero hero--photo">
-                <div class="hero-frame">
-                    <img class="hero-img"
-                        src="{{img_url @site.cover_image size="l"}}"
-                        srcset="{{img_url @site.cover_image size="m"}} 800w,
-                                {{img_url @site.cover_image size="l"}} 1200w,
-                                {{img_url @site.cover_image size="xl"}} 2000w"
-                        sizes="100vw"
-                        alt="" loading="eager" fetchpriority="high">
-                    <div class="hero-titling">
-                        <h1 class="hero-name">{{@site.title}}</h1>
-                        <p class="hero-tagline">{{#if @custom.hero_tagline}}<span class="hero-line">{{@custom.hero_tagline}}</span>{{#if @custom.hero_tagline_line_2}}<span class="hero-line">{{@custom.hero_tagline_line_2}}</span>{{/if}}{{else}}{{@site.description}}{{/if}}</p>
-                    </div>
+    {{#if @site.cover_image}}
+        <section class="hero hero--photo">
+            <div class="hero-frame">
+                <img class="hero-img"
+                    src="{{img_url @site.cover_image size="l"}}"
+                    srcset="{{img_url @site.cover_image size="m"}} 800w,
+                            {{img_url @site.cover_image size="l"}} 1200w,
+                            {{img_url @site.cover_image size="xl"}} 2000w"
+                    sizes="100vw"
+                    alt="" loading="eager" fetchpriority="high">
+                <div class="hero-titling">
+                    <h1 class="hero-name">{{@site.title}}</h1>
+                    <p class="hero-tagline">{{#if @custom.hero_tagline}}<span class="hero-line">{{@custom.hero_tagline}}</span>{{#if @custom.hero_tagline_line_2}}<span class="hero-line">{{@custom.hero_tagline_line_2}}</span>{{/if}}{{else}}{{@site.description}}{{/if}}</p>
                 </div>
-                <div class="hero-signup">
+            </div>
+            <div class="hero-signup">
+                {{#unless @member}}
                     <ul class="hero-stats">
                         {{#if @custom.social_proof_1}}<li class="hero-stat">{{@custom.social_proof_1}}</li>{{/if}}
                         {{#if @custom.social_proof_2}}<li class="hero-stat">{{@custom.social_proof_2}}</li>{{/if}}
                         {{#if @custom.social_proof_3}}<li class="hero-stat">{{@custom.social_proof_3}}</li>{{/if}}
                     </ul>
                     {{> "subscribe-form"}}
-                </div>
-            </section>
-        {{else}}
+                {{else}}
+                    <p class="hero-member-note">You are a member. Wallpapers, guides and discounts live in <a href="{{@site.url}}/members/">the members space</a>.</p>
+                {{/unless}}
+            </div>
+        </section>
+    {{else}}
+        {{#unless @member}}
             <section class="hero">
                 <p class="hero-tagline">{{#if @custom.hero_tagline}}{{@custom.hero_tagline}}{{else}}{{@site.description}}{{/if}}</p>
                 {{> "subscribe-form"}}
                 <p class="hero-proof">{{@custom.social_proof_text}}</p>
             </section>
-        {{/if}}
-    {{/unless}}
+        {{/unless}}
+    {{/if}}
 {{/match}}
 
 <section class="sheet">

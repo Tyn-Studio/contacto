@@ -1381,8 +1381,18 @@ h4 {
 .mbx-wall--portrait img {
     aspect-ratio: 9 / 19.5;
     width: auto;
-    max-height: 24rem;
+    max-height: 19rem;
     margin: 0 auto;
+}
+
+.hero-member-note {
+    font-size: 0.9375rem;
+    color: var(--gray);
+    margin: 0;
+}
+
+.hero-member-note a {
+    color: var(--ink);
 }
 
 .mbx-wall--portrait figcaption {
