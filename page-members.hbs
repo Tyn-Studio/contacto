@@ -9,18 +9,16 @@
                     <p class="nl-intro">{{custom_excerpt}}</p>
                 {{/if}}
             </header>
+
+            <section class="post-content gh-content">
+                {{content}}
+            </section>
         </article>
 
         <section class="pf-grid">
             {{#get "pages" filter="tag:hash-members" limit="all" order="published_at desc"}}
                 {{#foreach pages}}
                     {{> "members-card"}}
-                {{else}}
-                    {{#get "posts" filter="tag:hash-members" limit="1"}}
-                        {{#unless posts}}
-                            <p class="portfolio-empty">First goodies landing soon. You will hear about them in the newsletter.</p>
-                        {{/unless}}
-                    {{/get}}
                 {{/foreach}}
             {{/get}}
             {{#get "posts" filter="tag:hash-members" limit="all" order="published_at desc"}}
