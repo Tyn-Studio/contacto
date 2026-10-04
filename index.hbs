@@ -5,12 +5,12 @@
         <section class="hero hero--photo">
             <div class="hero-frame">
                 <img class="hero-img"
-                    src="{{img_url @site.cover_image size="l"}}"
-                    srcset="{{img_url @site.cover_image size="m"}} 800w,
-                            {{img_url @site.cover_image size="l"}} 1200w,
-                            {{img_url @site.cover_image size="xl"}} 2000w"
+                    src="{{img_url @site.cover_image size="l" format="webp"}}"
+                    srcset="{{img_url @site.cover_image size="m" format="webp"}} 800w,
+                            {{img_url @site.cover_image size="l" format="webp"}} 1200w,
+                            {{img_url @site.cover_image size="xl" format="webp"}} 2000w"
                     sizes="100vw"
-                    alt="" loading="eager" fetchpriority="high">
+                    alt="Photography by {{@site.title}}" loading="eager" fetchpriority="high">
                 <div class="hero-titling">
                     <h1 class="hero-name">{{@site.title}}</h1>
                     <p class="hero-tagline">{{#if @custom.hero_tagline}}<span class="hero-line">{{@custom.hero_tagline}}</span>{{#if @custom.hero_tagline_line_2}}<span class="hero-line">{{@custom.hero_tagline_line_2}}</span>{{/if}}{{else}}{{@site.description}}{{/if}}</p>

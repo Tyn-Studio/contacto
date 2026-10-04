@@ -712,8 +712,26 @@ h4 {
 }
 
 /* ------------------------------------------------------------------
-   12. Post nav, comments
+   12. Related posts, post nav, comments
 ------------------------------------------------------------------ */
+.related {
+    padding: clamp(2.5rem, 6vw, 4rem) var(--title-inset) 0;
+}
+
+.related-label {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--gray);
+    margin: 0;
+}
+
+.sheet--related {
+    padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
+}
+
 .post-nav {
     max-width: var(--measure);
     margin: 0 auto;
