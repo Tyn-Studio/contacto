@@ -53,7 +53,7 @@
         {{#get "posts" filter="tags:[{{primary_tag.slug}}]+id:-{{id}}" limit="3" as |related|}}
             {{#if related}}
                 <section class="related">
-                    <h2 class="related-label">More from {{primary_tag.name}}</h2>
+                    <h2 class="related-label">More like this</h2>
                 </section>
                 <section class="sheet sheet--related">
                     {{#foreach related}}
