@@ -1358,6 +1358,26 @@ h4 {
 }
 
 .mbx-from,
+.mbx-member-code {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 1.1rem 1.25rem 1.25rem;
+    border: 2px dashed var(--accent);
+    border-radius: 2px;
+}
+
+.mbx-member-code-pct {
+    font-family: var(--font-heading);
+    font-size: 1.4375rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    margin: 0;
+}
+
+.mbx-member-code-copy {
+    margin: 0.35rem 0 0.8rem;
+}
+
 .mbx-note {
     font-family: var(--mono);
     font-size: 0.6875rem;

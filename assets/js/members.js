@@ -47,6 +47,25 @@
         return btn;
     }
 
+    function renderMemberCode(info) {
+        var sec = section('Your shop discount');
+        var card = el('div', 'mbx-member-code');
+        card.appendChild(el('p', 'mbx-member-code-pct', info.pct + '% off everything'));
+        var copy = el('p', 'mbx-member-code-copy');
+        copy.appendChild(document.createTextNode('Prints, books and zines, on every order, as often as you like. Enter the code in the basket of the '));
+        var link = el('a', null, 'shop');
+        link.href = info.url;
+        copy.appendChild(link);
+        copy.appendChild(document.createTextNode('.'));
+        card.appendChild(copy);
+        var row = el('p', 'mbx-code-row');
+        row.appendChild(copyButton(info.code));
+        row.appendChild(el('span', 'mbx-note', ' click to copy'));
+        card.appendChild(row);
+        sec.appendChild(card);
+        return sec;
+    }
+
     function renderDeals(deals) {
         var sec = section('Member deals');
         var grid = el('div', 'mbx-deals');
@@ -156,6 +175,7 @@
             return response.json();
         })
         .then(function (data) {
+            if (data.member_code && data.member_code.code) root.appendChild(renderMemberCode(data.member_code));
             if (data.deals && data.deals.length) root.appendChild(renderDeals(data.deals));
             if (data.wallpapers && data.wallpapers.length) root.appendChild(renderWallpapers(data.wallpapers));
             if (data.downloads && data.downloads.length) root.appendChild(renderDownloads(data.downloads));
