@@ -1545,3 +1545,37 @@ h4 {
         transition: color 120ms ease, filter 120ms ease, outline-color 120ms ease;
     }
 }
+
+/* Mobile menu: below 44rem the links move into a panel opened by the
+   hamburger. Without JavaScript the row stays visible and scrolls. */
+.menu-toggle { display: none; }
+@media (max-width: 44rem) {
+    .js .menu-toggle {
+        display: inline-flex; flex-direction: column; justify-content: center; gap: 5px;
+        width: 2.75rem; height: 2.75rem; margin-right: -0.6rem; padding: 0 0.6rem;
+        background: none; border: 0; cursor: pointer;
+        -webkit-appearance: none; appearance: none;
+    }
+    .js .menu-toggle span { display: block; height: 2px; background: var(--ink); transition: transform 0.15s, opacity 0.15s; }
+    .js .is-open .menu-toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .js .is-open .menu-toggle span:nth-child(2) { opacity: 0; }
+    .js .is-open .menu-toggle span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .js .site-nav {
+        display: none; position: absolute; top: 3.5rem; left: 0; right: 0;
+        flex: none; overflow: visible; -webkit-mask-image: none; mask-image: none;
+        background: var(--paper); border-bottom: 1px solid var(--hairline);
+        padding: 0.25rem var(--pad) 0.75rem;
+        box-shadow: 0 12px 24px rgba(20, 20, 20, 0.06);
+    }
+    .js .is-open .site-nav { display: block; }
+    .js .site-nav .nav { display: flex; flex-direction: column; gap: 0; }
+    .js .site-nav .nav-item a {
+        display: block; padding: 0.85rem 0; font-size: 1.0625rem; color: var(--ink);
+        border-bottom: 1px solid var(--hairline);
+    }
+    .js .site-nav .nav-item:last-child a { border-bottom: 0; }
+    .js .head-cta { margin-left: auto; }
+}
+@media (max-width: 44rem) {
+    .js .site-nav .nav-item--current a { color: var(--accent); }
+}

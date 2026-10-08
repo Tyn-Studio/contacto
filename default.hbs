@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <script>document.documentElement.classList.add("js");</script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{meta_title}}</title>
     <link rel="stylesheet" href="{{asset "css/screen.css"}}">
@@ -14,7 +15,7 @@
 
     <header class="site-head">
         <a class="site-name" href="{{@site.url}}">{{@site.title}}</a>
-        <nav class="site-nav">
+        <nav class="site-nav" id="site-nav">
             {{navigation}}
         </nav>
         {{#if @member}}
@@ -22,6 +23,7 @@
         {{else}}
             <a class="head-cta" href="#/portal/signin" data-portal="signin">Sign in</a>
         {{/if}}
+        <button type="button" class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button>
     </header>
 
     <main id="site-main" class="site-main">
@@ -45,6 +47,18 @@
     {{#is "page"}}
         <script defer src="{{asset "js/gallery.js"}}"></script>
     {{/is}}
+    <script>(function () {
+    var head = document.querySelector('.site-head');
+    var toggle = head && head.querySelector('.menu-toggle');
+    if (!toggle) return;
+    function set(open) {
+        head.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    toggle.addEventListener('click', function () { set(!head.classList.contains('is-open')); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') set(false); });
+    document.addEventListener('click', function (e) { if (!head.contains(e.target)) set(false); });
+})();</script>
     {{ghost_foot}}
 </body>
 
