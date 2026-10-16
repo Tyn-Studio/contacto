@@ -13,7 +13,7 @@
     var CAT = /^\s*([^·|:]+?)\s*[·|:]\s*(.*)$/;
     // Ghost resizes on request: /size/w600/format/webp/... gives a WebP of
     // that width, far lighter than the JPEG sizes in the default srcset.
-    var WIDTHS = [300, 600, 1000, 1600, 2000];
+    var WIDTHS = [400, 600, 800, 1200, 1600, 2000];  // sizes Ghost is set up to make
     var GHOST = /\/content\/images\/(?:size\/w\d+\/(?:format\/\w+\/)?)?/;
     function sized(src, w) {
         return GHOST.test(src) ? src.replace(GHOST, '/content/images/size/w' + w + '/format/webp/') : src;
