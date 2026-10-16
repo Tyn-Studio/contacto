@@ -117,13 +117,21 @@
 
     function renderWallpapers(wallpapers) {
         var sec = section('Wallpapers');
+        // Justified rows like the portfolio wall: phone and desktop shapes
+        // side by side at one height.
         var grid = el('div', 'mbx-walls');
         wallpapers.forEach(function (wall) {
-            var fig = el('figure', 'mbx-wall' +
-                (wall.orientation === 'portrait' ? ' mbx-wall--portrait' : ''));
+            var portrait = wall.orientation === 'portrait';
+            var fig = el('figure', 'mbx-wall' + (portrait ? ' mbx-wall--portrait' : ''));
+            fig.style.setProperty('--ar', portrait ? '0.4615' : '1.7778');
             if (wall.preview) {
                 var img = el('img');
-                img.src = wall.preview;
+                img.src = wall.thumb || wall.preview;
+                if (wall.thumb) {
+                    img.srcset = wall.thumb + (portrait ? ' 360w, ' : ' 640w, ') +
+                        wall.preview + (portrait ? ' 900w' : ' 1920w');
+                    img.sizes = portrait ? '(min-width: 61.25rem) 140px, 110px' : '(min-width: 61.25rem) 520px, 90vw';
+                }
                 img.alt = wall.title;
                 img.loading = 'lazy';
                 fig.appendChild(img);
@@ -131,7 +139,7 @@
             var cap = el('figcaption');
             cap.appendChild(el('span', 'mbx-wall-title', wall.title));
             var links = el('span', 'mbx-dl-row');
-            if (wall.versions.desktop) links.appendChild(downloadLink(wall.versions.desktop, 'Desktop / tablet'));
+            if (wall.versions.desktop) links.appendChild(downloadLink(wall.versions.desktop, 'Desktop'));
             if (wall.versions.phone) links.appendChild(downloadLink(wall.versions.phone, 'Phone'));
             cap.appendChild(links);
             fig.appendChild(cap);
