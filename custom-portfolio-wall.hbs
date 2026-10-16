@@ -1,0 +1,36 @@
+{{!< default}}
+
+{{!-- Portfolio wall: every photo on one page, in the order of the page
+      content. Each image card's caption starts with its category, e.g.
+      "Street · Amsterdam, 2025"; wall.js turns those into the filters and
+      shows only the place. An image linked in the editor gets a "print"
+      link in the viewer. --}}
+{{#post}}
+    <article class="post page wall-page {{post_class}}">
+        <header class="post-head post-head--edge">
+            <h1 class="post-title">{{title}}</h1>
+            {{#if custom_excerpt}}
+                <p class="portfolio-intro">{{custom_excerpt}}</p>
+            {{/if}}
+            <div class="wall-filters" role="group" aria-label="Filter photos" hidden></div>
+        </header>
+        <section class="wall">
+            {{content}}
+        </section>
+    </article>
+{{/post}}
+
+<div class="wall-viewer" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button class="wv-close" type="button" aria-label="Close">&times;</button>
+    <button class="wv-prev" type="button" aria-label="Previous photo">&larr;</button>
+    <figure class="wv-stage">
+        <img class="wv-img" alt="">
+        <figcaption class="wv-caption">
+            <span class="wv-place"></span>
+            <span class="wv-count"></span>
+            <a class="wv-print" href="#" hidden>Available as a print &rarr;</a>
+        </figcaption>
+    </figure>
+    <button class="wv-next" type="button" aria-label="Next photo">&rarr;</button>
+</div>
+<script defer src="{{asset "js/wall.js"}}"></script>
