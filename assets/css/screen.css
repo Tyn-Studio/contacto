@@ -993,6 +993,37 @@ h4 {
     }
 }
 
+/* Portfolio sections: Street, Travel, Nature */
+.pf-section {
+    padding-top: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+.pf-section-head {
+    padding: 0 var(--title-inset);
+}
+
+.pf-section-title {
+    font-size: clamp(1.375rem, 3vw, 1.75rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.pf-section-intro {
+    color: var(--gray);
+    margin: 0.35rem 0 0;
+}
+
+.pf-section .pf-grid {
+    padding-top: clamp(1rem, 2.5vw, 1.5rem);
+    padding-bottom: 0;
+}
+
+@media (min-width: 61.25rem) {
+    .pf-section .pf-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 .portfolio-empty {
     font-family: var(--mono);
     font-size: 0.8125rem;
