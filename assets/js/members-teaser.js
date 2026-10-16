@@ -60,7 +60,7 @@
 
             var cta = el('p', 'mbx-teaser-cta');
             cta.appendChild(join());
-            cta.appendChild(el('span', 'mbx-note', 'Free. One email a week, leave anytime.'));
+            cta.appendChild(el('span', 'mbx-note', 'Free, and you can leave anytime.'));
             sec.appendChild(cta);
             root.appendChild(sec);
         })
