@@ -1817,3 +1817,76 @@ h4 {
     .wv-stage { padding: 3.5rem 0.5rem 3.5rem; }
     .wv-img { max-height: calc(100svh - 10rem); }
 }
+
+/* Members page, signed out: a look inside */
+.mbx-teaser-lead {
+    max-width: var(--measure);
+    margin: 0 auto 1.1rem;
+    color: var(--gray);
+}
+
+/* thumbnails in one justified strip, phone and desktop shapes mixed */
+.mbx-teaser-walls {
+    --row: 11rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    max-width: var(--wide);
+    margin: 0 auto;
+}
+
+.mbx-teaser-wall {
+    margin: 0;
+    flex-grow: var(--ar);
+    flex-basis: calc(var(--ar) * var(--row));
+    min-width: 0;
+}
+
+.mbx-teaser-wall img {
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--ar);
+    object-fit: cover;
+    background: var(--wash);
+    border-radius: 2px;
+}
+
+.mbx-teaser-wall figcaption {
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--gray);
+    padding-top: 0.35rem;
+}
+
+@media (max-width: 30rem) {
+    .mbx-teaser-walls { --row: 8rem; gap: 0.5rem; }
+}
+
+.mbx-teaser-card {
+    margin-top: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+.mbx-teaser-cta {
+    max-width: var(--measure);
+    margin: clamp(1.25rem, 3vw, 1.75rem) auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+}
+
+.mbx-cta {
+    display: inline-block;
+    font-weight: 600;
+    color: #fff;
+    background: var(--accent);
+    text-decoration: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: 2px;
+}
+
+.mbx-cta:hover {
+    filter: brightness(0.88);
+}
