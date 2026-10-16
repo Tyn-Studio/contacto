@@ -11,11 +11,28 @@
     document.documentElement.classList.add('has-wall');
 
     var CAT = /^\s*([^·|:]+?)\s*[·|:]\s*(.*)$/;
+    // Ghost resizes on request: /size/w600/format/webp/... gives a WebP of
+    // that width, far lighter than the JPEG sizes in the default srcset.
+    var WIDTHS = [300, 600, 1000, 1600, 2000];
+    var GHOST = /\/content\/images\/(?:size\/w\d+\/(?:format\/\w+\/)?)?/;
+    function sized(src, w) {
+        return GHOST.test(src) ? src.replace(GHOST, '/content/images/size/w' + w + '/format/webp/') : src;
+    }
     var counts = {};
     var order = [];
 
-    figures.forEach(function (fig) {
+    figures.forEach(function (fig, index) {
         var img = fig.querySelector('img');
+        var original = img.getAttribute('src');
+        if (GHOST.test(original)) {
+            img.srcset = WIDTHS.map(function (w) { return sized(original, w) + ' ' + w + 'w'; }).join(', ');
+            img.dataset.full = sized(original, 2000);
+        }
+        // The first rows are on screen at once: fetch them straight away.
+        if (index < 8) {
+            img.loading = 'eager';
+            if (index < 2) img.setAttribute('fetchpriority', 'high');
+        }
         var cap = fig.querySelector('figcaption');
         var text = cap ? cap.textContent.trim() : '';
         var m = text.match(CAT);
@@ -38,6 +55,21 @@
         fig.tabIndex = 0;
     });
 
+    // Tell the browser how wide each photo is drawn, so it picks the
+    // smallest file that is still sharp.
+    function setSizes() {
+        figures.forEach(function (fig) {
+            var w = fig.getBoundingClientRect().width;
+            if (w) fig.querySelector('img').sizes = Math.ceil(w) + 'px';
+        });
+    }
+    setSizes();
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(setSizes, 200);
+    });
+
     // Filters
     var bar = document.querySelector('.wall-filters');
     function button(label, value, n) {
@@ -52,6 +84,7 @@
         figures.forEach(function (fig) {
             fig.hidden = !!value && fig.dataset.cat !== value;
         });
+        setSizes();
         Array.prototype.forEach.call(bar.children, function (b) {
             b.setAttribute('aria-pressed', b.dataset.value === value ? 'true' : 'false');
         });
@@ -76,6 +109,7 @@
     var opener = null;
 
     function largest(img) {
+        if (img.dataset.full) return img.dataset.full;
         var best = img.currentSrc || img.src;
         if (img.srcset) {
             var top = 0;
@@ -98,6 +132,11 @@
         vCount.textContent = (current + 1) + ' / ' + list.length;
         vPrint.hidden = !link;
         if (link) vPrint.href = link.href;
+        // Warm the cache for the neighbours so arrows feel instant.
+        [current - 1, current + 1].forEach(function (j) {
+            var n = list[(j + list.length) % list.length];
+            if (n) { var pre = new Image(); pre.src = largest(n.querySelector('img')); }
+        });
     }
     function open(fig) {
         list = figures.filter(function (f) { return !f.hidden; });
